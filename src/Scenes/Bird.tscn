@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cp3wgxmnq8bh3"]
+
+[ext_resource type="Script" path="res://src/Scripts/Bird.gd" id="1_7n7lr"]
+[ext_resource type="Texture2D" uid="uid://ctuc130lq8upw" path="res://icon.svg" id="1_bpuhi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyl04"]
+
+[node name="Bird" type="CharacterBody2D"]
+script = ExtResource("1_7n7lr")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_bpuhi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jyl04")
+
+[node name="FlapTimer" type="Timer" parent="."]
+
+[node name="JumpBuffer" type="Timer" parent="."]
+
+[node name="CoyoteJumpTimer" type="Timer" parent="."]
