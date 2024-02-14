@@ -29,15 +29,17 @@ scale = Vector2(1.21875, 0.0937501)
 position = Vector2(40.6154, -32)
 shape = SubResource("RectangleShape2D_miie7")
 
-[node name="Icon2" type="Sprite2D" parent="Icon2"]
-position = Vector2(41.0256, -32)
-scale = Vector2(1.46154, 1.25)
+[node name="Icon3" type="Sprite2D" parent="."]
+position = Vector2(216, 117)
+scale = Vector2(1.78125, 0.117188)
 texture = ExtResource("1_uw7r5")
 
 [node name="Bird" parent="." instance=ExtResource("2_hfi2w")]
-position = Vector2(41, 122)
+position = Vector2(151, 84)
+scale = Vector2(1, 0.954054)
 SPEED = 200.0
 JUMP_VELOCITY = -200.0
 coyote_jump = 0.05
-jump_buffer = 0.2
+jump_buffer = 0.1
 flap = 0.2
+flap_amount = 1
