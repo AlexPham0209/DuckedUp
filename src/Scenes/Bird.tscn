@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cp3wgxmnq8bh3"]
+[gd_scene load_steps=9 format=3 uid="uid://cp3wgxmnq8bh3"]
 
 [ext_resource type="Script" path="res://src/Scripts/Bird.gd" id="1_7n7lr"]
 [ext_resource type="Texture2D" uid="uid://ctuc130lq8upw" path="res://icon.svg" id="1_bpuhi"]
 [ext_resource type="PackedScene" uid="uid://dvrp86le842ll" path="res://src/Scenes/States/StateMachine.tscn" id="3_jsfwl"]
 [ext_resource type="PackedScene" uid="uid://edu7dp8kny6c" path="res://src/Scenes/States/State.tscn" id="4_8c0lo"]
+[ext_resource type="Script" path="res://src/Scripts/RunState.gd" id="5_wmsxg"]
+[ext_resource type="Script" path="res://src/Scripts/IdleState.gd" id="6_vv0qh"]
+[ext_resource type="Script" path="res://src/Scripts/AirState.gd" id="7_saao3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyl04"]
 
@@ -33,7 +36,19 @@ wait_time = 0.2
 one_shot = true
 
 [node name="StateMachine" parent="." instance=ExtResource("3_jsfwl")]
+initial_state = "Idle"
 
 [node name="Run" parent="StateMachine" instance=ExtResource("4_8c0lo")]
+script = ExtResource("5_wmsxg")
+
+[node name="Idle" parent="StateMachine" instance=ExtResource("4_8c0lo")]
+script = ExtResource("6_vv0qh")
+
+[node name="Jump" parent="StateMachine" instance=ExtResource("4_8c0lo")]
+script = ExtResource("7_saao3")
+
+[node name="Glide" parent="StateMachine" instance=ExtResource("4_8c0lo")]
+
+[node name="Flap" parent="StateMachine" instance=ExtResource("4_8c0lo")]
 
 [connection signal="timeout" from="FlapTimer" to="." method="_on_flap_timer_timeout"]

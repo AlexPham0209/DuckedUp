@@ -13,7 +13,7 @@ func exit():
 func update(delta):
 	pass
 	
-func physic_update(delta):
+func physics_update(delta):
 	pass
 	
 func input(event):
