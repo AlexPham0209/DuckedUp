@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cp3wgxmnq8bh3"]
+[gd_scene load_steps=6 format=3 uid="uid://cp3wgxmnq8bh3"]
 
 [ext_resource type="Script" path="res://src/Scripts/Bird.gd" id="1_7n7lr"]
 [ext_resource type="Texture2D" uid="uid://ctuc130lq8upw" path="res://icon.svg" id="1_bpuhi"]
+[ext_resource type="PackedScene" uid="uid://dvrp86le842ll" path="res://src/Scenes/States/StateMachine.tscn" id="3_jsfwl"]
+[ext_resource type="PackedScene" uid="uid://edu7dp8kny6c" path="res://src/Scenes/States/State.tscn" id="4_8c0lo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyl04"]
 
@@ -16,6 +18,8 @@ texture = ExtResource("1_bpuhi")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jyl04")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
 [node name="FlapTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
@@ -27,5 +31,9 @@ one_shot = true
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[node name="StateMachine" parent="." instance=ExtResource("3_jsfwl")]
+
+[node name="Run" parent="StateMachine" instance=ExtResource("4_8c0lo")]
 
 [connection signal="timeout" from="FlapTimer" to="." method="_on_flap_timer_timeout"]

@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var SPEED = 300.0
 @export var JUMP_VELOCITY = -400.0
+@export var FLAP_VELOCITY = -600.0
 @export var coyote_jump = 0.5
 @export var jump_buffer = 0.5
 @export var flap = 0.5
@@ -56,14 +57,13 @@ func move(delta):
 		velocity.x /= 3
 	
 func jump(delta):
-	print(coyote_jump_timer.time_left)
 	#If pressed jump in the air and flaps is above 0, then flap/double jump.
 	if Input.is_action_just_pressed("Jump") and coyote_jump_timer.is_stopped() and flaps > 0:
 		flap_timer.start()
 		can_flap = false
 		flaps -= 1
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.y = JUMP_VELOCITY * 2.0
+		velocity.y = FLAP_VELOCITY
 	
 	# Handle Jump.
 	if !jump_buffer_timer.is_stopped() and !coyote_jump_timer.is_stopped() and can_flap:
@@ -72,7 +72,7 @@ func jump(delta):
 		velocity.y = JUMP_VELOCITY
 	
 	#If Jump Button is released, decrease velocity and weaken jump
-	if Input.is_action_just_released("Jump") and can_flap:
+	if Input.is_action_just_released("Jump") and can_flap and velocity.y < 0:
 		velocity.y /= 2
 
 
@@ -84,7 +84,7 @@ func glide():
 	if Input.is_action_just_released("Glide") and is_gliding:
 		is_gliding = false
 
-
+#End of flap
 func _on_flap_timer_timeout():
 	can_flap = true
 	velocity.y = move_toward(velocity.y, 0, -JUMP_VELOCITY * 1.5)
