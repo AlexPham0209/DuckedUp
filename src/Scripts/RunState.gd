@@ -4,12 +4,10 @@ extends State
 
 func physics_update(delta):
 	move(delta)
-	
-	if !bird.jump_buffer_timer.is_stopped() and !bird.coyote_jump_timer.is_stopped():
-		transition_to.emit("Jump")
+	bird.animation.play("Run")
 		
 	if bird.velocity.x == 0 and bird.is_on_floor():
-		transition_to.emit("Idle")
+		transition_to.emit("Idle", {})
 	
 func move(delta):
 	var direction = Input.get_axis("Left", "Right")

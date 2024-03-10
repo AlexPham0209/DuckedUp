@@ -1,10 +1,10 @@
 extends Node2D
 class_name State
 
-signal transition_to(state_name : String)
+signal transition_to(state_name : String, param : Dictionary)
 var state_machine : StateMachine
 
-func enter():
+func enter(param : Dictionary = {}):
 	pass
 	
 func exit():
@@ -18,3 +18,5 @@ func physics_update(delta):
 	
 func input(event):
 	pass
+	
+

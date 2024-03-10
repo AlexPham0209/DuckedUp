@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://tptw2retcjyn"]
+
+[ext_resource type="Texture2D" uid="uid://0loouh5ybjvk" path="res://src/Assets/Arrow.png" id="1_0p1g8"]
+
+[node name="Arrow" type="Node2D"]
+z_index = -1
+position = Vector2(0, -4.76837e-07)
+
+[node name="Icon" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, 1.14441e-05)
+texture = ExtResource("1_0p1g8")
+offset = Vector2(16, 0)

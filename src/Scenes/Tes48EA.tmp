@@ -38,9 +38,12 @@ texture = ExtResource("1_uw7r5")
 
 [node name="Bird" parent="." instance=ExtResource("2_hfi2w")]
 position = Vector2(151, 84)
-SPEED = 150.0
+SPEED = 200.0
 JUMP_VELOCITY = -200.0
-flap_amount = 1
+coyote_jump = 0.05
+jump_buffer = 0.1
+flap = 0.25
+flap_amount = null
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(151, 84)
