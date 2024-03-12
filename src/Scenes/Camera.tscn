@@ -8,6 +8,9 @@ position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 script = ExtResource("1_p3dtk")
+NOISE_SHAKE_SPEED = 15.0
+NOISE_SHAKE_STRENGTH = 30.0
+SHAKE_DECAY_RATE = 0.1
 
 [node name="Limits" type="Node" parent="."]
 

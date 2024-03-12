@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="Ducked Up"
+run/main_scene="res://src/Scenes/MainLevel.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Signals="*res://src/Scripts/Signals.gd"
+Global="*res://src/Scripts/Global.gd"
 
 [display]
 
@@ -64,6 +70,7 @@ Click={
 2d_physics/layer_4="Tile"
 2d_physics/layer_5="Triggers"
 2d_physics/layer_6="Mouse"
+2d_physics/layer_7="Crosshair"
 
 [rendering]
 

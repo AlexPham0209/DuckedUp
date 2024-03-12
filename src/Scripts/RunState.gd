@@ -8,6 +8,9 @@ func physics_update(delta):
 		
 	if bird.velocity.x == 0 and bird.is_on_floor():
 		transition_to.emit("Idle", {})
+		
+	if not bird.is_on_floor():
+		transition_to.emit("Air", {})	
 	
 func move(delta):
 	var direction = Input.get_axis("Left", "Right")

@@ -6,7 +6,6 @@ signal transition(state_name : String, param : Dictionary)
 
 @export var initial_state : String
 var state : State
-var state_name :String 
 
 #TODO: A lot of code duplication in state machine system.  Fix this.
 
@@ -15,7 +14,6 @@ func _ready():
 		state.transition_to.connect(transition_to)
 		state.state_machine = self
 	self.state = get_node(initial_state)
-	state_name = initial_state
 	#print("Initial State: " + initial_state)
 	state.enter()
 
@@ -31,7 +29,6 @@ func _input(event):
 func transition_to(state_name : String, param : Dictionary):
 	if not has_node(state_name):
 		return
-	self.state_name = state_name
 	#print("Transitioned to: " + state_name)
 	state.exit()
 	state = get_node(state_name)
