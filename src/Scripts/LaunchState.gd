@@ -3,8 +3,7 @@ extends State
 @onready var bird : Bird = $"../.."
 var arrow = preload("res://src/Scenes/Arrow.tscn")
 var arrow_instance
-var magnitude
-var angle
+var direction = Vector2()
 var glide = false
 
 func enter(param : Dictionary = {}):
@@ -17,16 +16,11 @@ func enter(param : Dictionary = {}):
 	
 func physics_update(delta):
 	bird.velocity.y += bird.gravity * delta if !glide else bird.gravity * 0.1 * delta
-	var x = bird.global_position.x - get_global_mouse_position().x
-	var y = bird.global_position.y - get_global_mouse_position().y
-	
-	if x != 0:
-		bird.sprite.flip_h = x < 0
+	direction = bird.global_position - get_global_mouse_position()
+	bird.sprite.flip_h = direction.x < 0
 		
-	magnitude = min(sqrt(pow(x, 2) + pow(y, 2)), bird.distance)
-	angle = atan2(y, x)
-	arrow_instance.rotation = angle
-	arrow_instance.get_node("Icon").scale.x = magnitude/50
+	arrow_instance.rotation = direction.angle()
+	arrow_instance.get_node("Icon").scale.x = min(direction.length(), bird.distance)/50
 	
 func _on_glide_timer_timeout():
 	glide = false
@@ -36,7 +30,7 @@ func input(event):
 		return
 	
 	if !event.pressed:
-		transition_to.emit("Air", {"angle" : angle, "magnitude" : magnitude})
+		transition_to.emit("Air", {"angle" : direction.angle(), "magnitude" : min(direction.length(), bird.distance)})
 
 func exit():
 	if arrow_instance:
