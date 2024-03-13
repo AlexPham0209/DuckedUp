@@ -8,14 +8,6 @@ var bottom = 0
 var direction = 1
 var current_region 
 
-enum Action {
-	START, 
-	MOVING,
-	PATROL
-}
-
-var action : Action = Action.START
-
 func enter(param : Dictionary = {}):
 	time = 0
 
@@ -30,7 +22,7 @@ func move(delta):
 	time += delta
 	var x = crosshair.amplitude * crosshair.frequency * cos(crosshair.frequency * time)	
 	var distance = abs(Global.bird.global_position.y - crosshair.global_position.y)
-	direction = -1 if crosshair.global_position.y < pivot else 1
+	direction = -1 if crosshair.global_position.y > Global.bird.current_region.pivot.global_position.y else 1
 	if distance > 2: 
 		crosshair.position.y += direction * crosshair.searching_speed * delta
 	crosshair.position.x += x * delta
@@ -55,6 +47,5 @@ func _on_proximity_area_entered(area):
 
 func _on_region_area_entered(area):
 	self.current_region = area.get_parent()
-	self.pivot = current_region.pivot.get_global_position().y
 	self.top = current_region.top_left.get_global_position().y
 	self.bottom = current_region.bottom_right.get_global_position().y
