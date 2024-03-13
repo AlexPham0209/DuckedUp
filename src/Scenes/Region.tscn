@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/Scripts/Region.gd" id="1_ck4r8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mc71"]
-size = Vector2(320, 272)
+size = Vector2(320, 295)
 
 [node name="Region" type="Node2D"]
 script = ExtResource("1_ck4r8")

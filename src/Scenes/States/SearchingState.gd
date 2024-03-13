@@ -12,13 +12,15 @@ func enter(param : Dictionary = {}):
 	time = 0
 
 func physics_update(delta):
+	#A little ugly
 	if Global.bird.current_region != self.current_region:
 		var pivot = Global.bird.current_region.pivot.global_position.y 
 		direction = -1 if crosshair.global_position.y > pivot else 1
 	else:
-		if crosshair.global_position.y < top or crosshair.global_position.y > bottom:
-			direction = -direction 
-	
+		if crosshair.global_position.y < top:
+			direction = 1 
+		elif crosshair.global_position.y > bottom:
+			direction = -1 
 	move(delta)
 	
 func move(delta):

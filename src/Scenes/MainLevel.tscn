@@ -98,7 +98,7 @@ position = Vector2(170, 89)
 position = Vector2(-150, -183)
 
 [node name="CollisionShape2D" parent="Region2/Trigger" index="0"]
-position = Vector2(10, -47)
+position = Vector2(10, -35.5)
 
 [editable path="Bird"]
 [editable path="Bird/Camera"]
