@@ -21,6 +21,7 @@ class_name Bird
 # Get the gravity from the project settings to be synced with RigidBody nodes
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var flaps = 0
+var current_region
 
 func _ready():
 	Global.bird = self
@@ -54,3 +55,7 @@ func move(delta, speed):
 func on_hit():
 	state_machine.transition_to("Air", {"angle" : randf_range(range.x, range.y), "magnitude" : 200})
 		
+		
+func _on_region_collision_area_entered(area):
+	print("new region")
+	current_region = area.get_parent()

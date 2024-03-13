@@ -6,7 +6,7 @@ var pivot = 0
 var top = 0
 var bottom = 0
 var direction = 1
-var current_area : Area2D 
+var current_region 
 
 enum Action {
 	START, 
@@ -16,27 +16,21 @@ enum Action {
 
 var action : Action = Action.START
 
-func _ready():
-	Signals.enter_region.connect(enter_region)
-
 func enter(param : Dictionary = {}):
 	time = 0
 
-
 func physics_update(delta):
-	match(action):
-		Action.PATROL:
-			patrol(delta)
-			
-		Action.MOVING:
-			move(delta)
+	if Global.bird.current_region != self.current_region:
+		move(delta)
+	else:
+		patrol(delta)
 	
 	
 func move(delta):
 	time += delta
 	var x = crosshair.amplitude * crosshair.frequency * cos(crosshair.frequency * time)	
 	var distance = abs(Global.bird.global_position.y - crosshair.global_position.y)
-	
+	direction = -1 if crosshair.global_position.y < pivot else 1
 	if distance > 2: 
 		crosshair.position.y += direction * crosshair.searching_speed * delta
 	crosshair.position.x += x * delta
@@ -52,25 +46,15 @@ func patrol(delta):
 	crosshair.position.y += direction * crosshair.searching_speed * delta
 	crosshair.position.x += x * delta
 
-func enter_region(top, bottom, pivot, area):
-	self.top = top
-	self.bottom = bottom
-	self.pivot = pivot
-	if area != current_area:
-		self.action = Action.MOVING
-	
-	direction = -1 if crosshair.global_position.y > pivot else 1
-	
-	
+
 func _on_proximity_area_entered(area):
 	if state_machine.state != self:
 		return
 	
 	transition_to.emit("Attacking", {})
 
-
 func _on_region_area_entered(area):
-	if state_machine.state != self:
-		return
-	self.current_area = area
-	self.action = Action.PATROL
+	self.current_region = area.get_parent()
+	self.pivot = current_region.pivot.get_global_position().y
+	self.top = current_region.top_left.get_global_position().y
+	self.bottom = current_region.bottom_right.get_global_position().y

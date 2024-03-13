@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cp3wgxmnq8bh3"]
+[gd_scene load_steps=18 format=3 uid="uid://cp3wgxmnq8bh3"]
 
 [ext_resource type="Script" path="res://src/Scripts/Bird.gd" id="1_7n7lr"]
 [ext_resource type="PackedScene" uid="uid://dvrp86le842ll" path="res://src/Scenes/States/StateMachine.tscn" id="3_jsfwl"]
@@ -18,6 +18,9 @@ radius = 90.934
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hhbrf"]
 radius = 5.65685
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wmhx4"]
+size = Vector2(22.2047, 19.1903)
 
 [sub_resource type="Animation" id="Animation_86few"]
 resource_name = "Idle"
@@ -107,6 +110,14 @@ collision_mask = 64
 [node name="Area2D" type="CollisionShape2D" parent="CrosshairCollision"]
 shape = SubResource("CircleShape2D_hhbrf")
 
+[node name="RegionCollision" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RegionCollision"]
+position = Vector2(0, -0.528589)
+scale = Vector2(1.17092, 1.30572)
+shape = SubResource("RectangleShape2D_wmhx4")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_2s5yg")
@@ -133,4 +144,5 @@ script = ExtResource("7_saao3")
 
 [connection signal="input_event" from="MouseCollision" to="StateMachine/Idle" method="_on_mouse_collision_input_event"]
 [connection signal="input_event" from="MouseCollision" to="StateMachine/Air" method="_on_mouse_collision_input_event"]
+[connection signal="area_entered" from="RegionCollision" to="." method="_on_region_collision_area_entered"]
 [connection signal="timeout" from="GlideTimer" to="StateMachine/Launch" method="_on_glide_timer_timeout"]

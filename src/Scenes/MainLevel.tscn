@@ -24,7 +24,7 @@ SPEED = 100.0
 JUMP_VELOCITY = 4.0
 range = Vector2(60, 120)
 
-[node name="Camera" parent="Bird" index="7"]
+[node name="Camera" parent="Bird" index="8"]
 NOISE_SHAKE_SPEED = 10.0
 NOISE_SHAKE_STRENGTH = 10.0
 time = 0.1
@@ -78,6 +78,9 @@ position = Vector2(170, 89)
 
 [node name="TopLeft" parent="Region" index="2"]
 position = Vector2(-150, -183)
+
+[node name="Trigger" parent="Region" index="3"]
+collision_mask = 0
 
 [node name="CollisionShape2D" parent="Region/Trigger" index="0"]
 position = Vector2(10, -47)
