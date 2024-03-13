@@ -5,20 +5,21 @@ extends State
 var arrow = preload("res://src/Scenes/Arrow.tscn")
 var arrow_instance
 var direction = Vector2()
+var gravity = 0.0
 var hover = false
 
 
 func enter(param : Dictionary = {}):
-	if param.has("float"):
+	if param.has("float") and param["float"] == true:
 		timer.start()
-		hover = true
 		
-	bird.velocity.x = 0
+	bird.velocity = Vector2.ZERO
+	gravity = bird.gravity * 0.1 if param.has("float") else bird.gravity 
 	arrow_instance = arrow.instantiate()
 	bird.add_child(arrow_instance)
 	
 func physics_update(delta):
-	bird.velocity.y += bird.gravity * delta if !hover else bird.gravity * 0.1 * delta
+	bird.velocity.y += gravity * delta
 	direction = bird.global_position - get_global_mouse_position()
 	bird.sprite.flip_h = direction.x < 0
 		
@@ -26,7 +27,8 @@ func physics_update(delta):
 	arrow_instance.get_node("Icon").scale.x = min(direction.length(), bird.distance)/50
 	
 func _on_glide_timer_timeout():
-	hover = false
+	timer.stop()
+	transition_to.emit("Air", {})
 
 func input(event):
 	if !(event is InputEventMouseButton):

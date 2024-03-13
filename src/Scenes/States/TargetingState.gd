@@ -18,4 +18,4 @@ func _on_hit_area_exited(area):
 		
 	timer.stop()
 	await get_tree().create_timer(crosshair.delay).timeout
-	transition_to.emit("Attacking", {})
+	transition_to.emit("Searching", {})

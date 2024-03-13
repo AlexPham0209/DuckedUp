@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpktojem7d8os"]
+[gd_scene load_steps=11 format=3 uid="uid://cpktojem7d8os"]
 
 [ext_resource type="Script" path="res://src/Scripts/Crosshair.gd" id="1_7320g"]
 [ext_resource type="Texture2D" uid="uid://c7508grvkiac2" path="res://src/Assets/Crosshair.png" id="1_a577i"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://src/Scripts/AttackingState.gd" id="3_kqysm"]
 [ext_resource type="PackedScene" uid="uid://edu7dp8kny6c" path="res://src/Scenes/States/State.tscn" id="3_m65xk"]
 [ext_resource type="Script" path="res://src/Scenes/States/TargetingState.gd" id="6_5710i"]
+[ext_resource type="Script" path="res://src/Scenes/States/SearchingState.gd" id="6_eohx7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l0r6h"]
 radius = 45.2769
@@ -13,10 +14,15 @@ radius = 45.2769
 [sub_resource type="CircleShape2D" id="CircleShape2D_oi3yj"]
 radius = 6.32456
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_app16"]
+radius = 17.0
+
 [node name="Hunter" type="Node2D"]
 script = ExtResource("1_7320g")
-speed = 5
-delay = 0.5
+searching_speed = 50
+attacking_speed = 150
+amplitude = 150
+frequency = 1
 
 [node name="Crosshair" type="Sprite2D" parent="."]
 texture = ExtResource("1_a577i")
@@ -36,19 +42,29 @@ collision_layer = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hit"]
 shape = SubResource("CircleShape2D_oi3yj")
 
+[node name="Region" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Region"]
+shape = SubResource("CircleShape2D_app16")
+
 [node name="Pivots" type="Node2D" parent="."]
 
 [node name="States" parent="." instance=ExtResource("2_vvybv")]
-initial_state = "Attacking"
+initial_state = "Searching"
 
 [node name="Attacking" parent="States" instance=ExtResource("3_m65xk")]
 script = ExtResource("3_kqysm")
 
 [node name="Searching" parent="States" instance=ExtResource("3_m65xk")]
+script = ExtResource("6_eohx7")
 
 [node name="Targeting" parent="States" instance=ExtResource("3_m65xk")]
 script = ExtResource("6_5710i")
 
 [connection signal="timeout" from="Timer" to="States/Targeting" method="_on_timer_timeout"]
+[connection signal="area_entered" from="Proximity" to="States/Searching" method="_on_proximity_area_entered"]
 [connection signal="area_entered" from="Hit" to="States/Attacking" method="_on_hit_area_entered"]
 [connection signal="area_exited" from="Hit" to="States/Targeting" method="_on_hit_area_exited"]
+[connection signal="area_entered" from="Region" to="States/Searching" method="_on_region_area_entered"]
