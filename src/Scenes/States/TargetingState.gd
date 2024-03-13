@@ -9,6 +9,7 @@ func _on_timer_timeout():
 	print("hit")
 	Signals.hit.emit()
 	timer.start()
+	
 
 
 func _on_hit_area_exited(area):

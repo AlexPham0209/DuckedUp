@@ -40,7 +40,6 @@ texture = ExtResource("1_uw7r5")
 position = Vector2(151, 84)
 SPEED = 150.0
 JUMP_VELOCITY = -200.0
-flap_amount = 1
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(151, 84)

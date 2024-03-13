@@ -9,9 +9,9 @@ func enter(param : Dictionary = {}):
 	bird.flaps += 1
 
 func physics_update(delta):
-	bird.velocity.x = move_toward(bird.velocity.x, 0, slide)
+	bird.move(delta, bird.GLIDE_SPEED)
 	bird.velocity.y += bird.gravity * 0.1 * delta
-
+	
 func _on_glide_timer_timeout():
 	if state_machine.state != self:
 		return
@@ -23,6 +23,6 @@ func _on_mouse_collision_input_event(viewport, event, shape_idx):
 		return
 		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		transition_to.emit("Launch", {"glide" : true})
+		transition_to.emit("Launch", {"float" : true})
 
 	

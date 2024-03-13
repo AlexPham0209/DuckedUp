@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Bird
 
 @export var SPEED = 300.0
+@export var GLIDE_SPEED = 10.0
 @export var JUMP_VELOCITY = -400.0
 @export var BOUNCE_STRENGTH = 1.0
 @export var distance = 500
@@ -19,7 +20,6 @@ class_name Bird
 
 # Get the gravity from the project settings to be synced with RigidBody nodes
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
 var flaps = 0
 
 func _ready():
@@ -29,7 +29,7 @@ func _ready():
 
 	
 func _physics_process(delta):
-	if is_on_floor():
+	if is_on_floor() or is_on_wall_only():
 		flaps = 0
 	
 	var direction = Input.get_axis("Left", "Right") # see Vector2D.get_axis() if you only need left/right
@@ -43,6 +43,13 @@ func _physics_process(delta):
 		var collision = get_slide_collision(0)
 		if collision != null and not is_on_floor():
 			velocity = temp.bounce(collision.get_normal()) * BOUNCE_STRENGTH
+
+func move(delta, speed):
+	var direction = Input.get_axis("Left", "Right")
+	if direction:
+		velocity.x = direction * speed
+	else:
+		velocity.x = move_toward(velocity.x, 0, speed)
 
 func on_hit():
 	state_machine.transition_to("Air", {"angle" : randf_range(range.x, range.y), "magnitude" : 200})
