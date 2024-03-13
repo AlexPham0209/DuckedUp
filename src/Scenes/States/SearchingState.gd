@@ -13,28 +13,17 @@ func enter(param : Dictionary = {}):
 
 func physics_update(delta):
 	if Global.bird.current_region != self.current_region:
-		move(delta)
+		var pivot = Global.bird.current_region.pivot.global_position.y 
+		direction = -1 if crosshair.global_position.y > pivot else 1
 	else:
-		patrol(delta)
+		if crosshair.global_position.y < top or crosshair.global_position.y > bottom:
+			direction = -direction 
 	
+	move(delta)
 	
 func move(delta):
 	time += delta
 	var x = crosshair.amplitude * crosshair.frequency * cos(crosshair.frequency * time)	
-	var distance = abs(Global.bird.global_position.y - crosshair.global_position.y)
-	direction = -1 if crosshair.global_position.y > Global.bird.current_region.pivot.global_position.y else 1
-	if distance > 2: 
-		crosshair.position.y += direction * crosshair.searching_speed * delta
-	crosshair.position.x += x * delta
-
-func patrol(delta):
-	time += delta
-	var x = crosshair.amplitude * crosshair.frequency * cos(crosshair.frequency * time)
-	if crosshair.global_position.y < top:
-		direction = 1
-	elif crosshair.global_position.y > bottom:
-		direction = -1
-	
 	crosshair.position.y += direction * crosshair.searching_speed * delta
 	crosshair.position.x += x * delta
 
