@@ -1,10 +1,13 @@
-extends Node2D
+extends Area2D
 
-@onready var bottom_right = $BottomRight
-@onready var top_left = $TopLeft
 @onready var pivot = $Pivot
-@onready var trigger = $Trigger
+@onready var collision = $CollisionShape2D
 
-
-func _on_trigger_area_entered(area):
-	Signals.enter_region.emit(top_left.global_position.y, bottom_right.global_position.y, pivot.global_position.y, trigger)
+func _on_area_entered(area):
+	print("entered")
+	var size = collision.shape.size
+	var top = collision.global_position.y - size.y/2
+	var bottom = collision.global_position.y + size.y/2
+	var left = collision.global_position.x - size.x/2
+	var right = collision.global_position.x + size.x/2
+	Signals.enter_region.emit(top, bottom, left, right)

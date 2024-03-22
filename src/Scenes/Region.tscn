@@ -3,23 +3,15 @@
 [ext_resource type="Script" path="res://src/Scripts/Region.gd" id="1_ck4r8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mc71"]
-size = Vector2(320, 295)
+size = Vector2(320, 316)
 
-[node name="Region" type="Node2D"]
+[node name="Region" type="Area2D"]
+collision_layer = 16
 script = ExtResource("1_ck4r8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3mc71")
 
 [node name="Pivot" type="Marker2D" parent="."]
 
-[node name="BottomRight" type="Marker2D" parent="."]
-position = Vector2(10, 10)
-
-[node name="TopLeft" type="Marker2D" parent="."]
-position = Vector2(-10, -10)
-
-[node name="Trigger" type="Area2D" parent="."]
-collision_layer = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
-shape = SubResource("RectangleShape2D_3mc71")
-
-[connection signal="area_entered" from="Trigger" to="." method="_on_trigger_area_entered"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

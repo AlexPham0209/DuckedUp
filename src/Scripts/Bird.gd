@@ -30,7 +30,7 @@ func _ready():
 
 	
 func _physics_process(delta):
-	if is_on_floor() or is_on_wall_only():
+	if is_on_floor():
 		flaps = 0
 	
 	var direction = Input.get_axis("Left", "Right") # see Vector2D.get_axis() if you only need left/right

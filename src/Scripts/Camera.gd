@@ -16,11 +16,12 @@ var tween : Tween
 
 func _ready():
 	Signals.hit.connect(screen_shake)
-	self.limit_left = top_left.position.x
-	self.limit_top = top_left.position.y
-
-	self.limit_right = bottom_right.position.x
-	self.limit_bottom = bottom_right.position.y
+	Signals.enter_region.connect(enter_region)
+#	self.limit_left = top_left.position.x
+#	self.limit_top = top_left.position.y
+#
+#	self.limit_right = bottom_right.position.x
+#	self.limit_bottom = bottom_right.position.y
 	
 func screen_shake():
 	if tween:
@@ -34,6 +35,14 @@ func _process(delta):
 	var shake_offset = get_random_offset()
 	self.offset = shake_offset
 
+
+func enter_region(top, bottom, left, right):
+	self.limit_left = left
+	self.limit_top = top
+
+	self.limit_right = right
+	self.limit_bottom = bottom
+	
 func get_random_offset() -> Vector2:
 	return Vector2(
 		randf_range(-shake_strength, shake_strength),
