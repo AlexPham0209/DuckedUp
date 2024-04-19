@@ -37,6 +37,9 @@ func _on_proximity_area_entered(area):
 	transition_to.emit("Attacking", {})
 
 func _on_region_area_entered(area):
-	self.current_region = area.get_parent()
-	self.top = current_region.top_left.get_global_position().y
-	self.bottom = current_region.bottom_right.get_global_position().y
+	self.current_region = area
+	var size = area.get_node("CollisionShape2D").shape.size
+	var top = area.get_node("CollisionShape2D").global_position.y - size.y/2
+	var bottom = area.get_node("CollisionShape2D").global_position.y + size.y/2
+	self.top = top
+	self.bottom = bottom

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cp3wgxmnq8bh3"]
+[gd_scene load_steps=19 format=3 uid="uid://cp3wgxmnq8bh3"]
 
 [ext_resource type="Script" path="res://src/Scripts/Bird.gd" id="1_7n7lr"]
 [ext_resource type="PackedScene" uid="uid://dvrp86le842ll" path="res://src/Scenes/States/StateMachine.tscn" id="3_jsfwl"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://src/Scripts/AirState.gd" id="7_saao3"]
 [ext_resource type="PackedScene" uid="uid://bovpnjlbwv75q" path="res://src/Scenes/Camera.tscn" id="9_0b8s4"]
 [ext_resource type="Texture2D" uid="uid://bpuv7hmbempox" path="res://src/Assets/DuckSpriteSheet.png" id="9_8kve1"]
+[ext_resource type="PackedScene" uid="uid://cw61kbgoqejva" path="res://src/Scenes/Interaction.tscn" id="10_0hvsv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyl04"]
 size = Vector2(26, 25)
@@ -105,6 +106,7 @@ collision_mask = 0
 shape = SubResource("CircleShape2D_bfft4")
 
 [node name="CrosshairCollision" type="Area2D" parent="."]
+collision_layer = 256
 collision_mask = 64
 
 [node name="Area2D" type="CollisionShape2D" parent="CrosshairCollision"]
@@ -141,6 +143,8 @@ script = ExtResource("7_ffinw")
 script = ExtResource("7_saao3")
 
 [node name="Camera" parent="." instance=ExtResource("9_0b8s4")]
+
+[node name="Interaction" parent="." instance=ExtResource("10_0hvsv")]
 
 [connection signal="input_event" from="MouseCollision" to="StateMachine/Idle" method="_on_mouse_collision_input_event"]
 [connection signal="input_event" from="MouseCollision" to="StateMachine/Air" method="_on_mouse_collision_input_event"]

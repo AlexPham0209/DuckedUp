@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://xs1l0m8yy5an"]
+
+[ext_resource type="Script" path="res://src/Scripts/DialogueBox.gd" id="1_podp2"]
+
+[node name="DialogueBox" type="CanvasLayer"]
+layer = -1
+script = ExtResource("1_podp2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_top = 14.0
+offset_right = 320.0
+offset_bottom = 80.0
+color = Color(0, 0, 0, 1)
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = -1
+anchor_right = 0.073
+anchor_bottom = 0.099
+offset_left = 232.0
+offset_top = 32.0
+offset_right = 287.64
+offset_bottom = 47.16
+text = "Continue"
+
+[node name="Label" type="Label" parent="."]
+offset_top = 14.0
+offset_right = 320.0
+offset_bottom = 80.0
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

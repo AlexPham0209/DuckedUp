@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 Signals="*res://src/Scripts/Signals.gd"
 Global="*res://src/Scripts/Global.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+StoryManager="*res://src/Scripts/StoryManager.gd"
 
 [display]
 
@@ -27,6 +29,10 @@ window/size/viewport_height=160
 window/size/window_width_override=960
 window/size/window_height_override=480
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
 [input]
 
@@ -62,6 +68,10 @@ Click={
 ]
 }
 
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://src/Assets/Manager.dialogue")
+
 [layer_names]
 
 2d_physics/layer_1="Player"
@@ -71,6 +81,7 @@ Click={
 2d_physics/layer_5="Triggers"
 2d_physics/layer_6="Mouse"
 2d_physics/layer_7="Crosshair"
+2d_physics/layer_8="Interaction"
 
 [rendering]
 

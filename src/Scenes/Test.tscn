@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5nqghbup4dg3"]
+[gd_scene load_steps=6 format=3 uid="uid://b5nqghbup4dg3"]
 
 [ext_resource type="Texture2D" uid="uid://ctuc130lq8upw" path="res://icon.svg" id="1_uw7r5"]
 [ext_resource type="PackedScene" uid="uid://cp3wgxmnq8bh3" path="res://src/Scenes/Bird.tscn" id="2_hfi2w"]
+[ext_resource type="PackedScene" uid="uid://cw61kbgoqejva" path="res://src/Scenes/Interaction.tscn" id="3_ujd1t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_miie7"]
 size = Vector2(186.256, 170.667)
@@ -13,6 +14,7 @@ size = Vector2(186.256, 170.667)
 [node name="Icon" type="StaticBody2D" parent="."]
 position = Vector2(71, 154)
 scale = Vector2(1.21875, 0.0937501)
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Icon"]
 position = Vector2(40.6154, -32)
@@ -26,6 +28,7 @@ texture = ExtResource("1_uw7r5")
 [node name="Icon2" type="StaticBody2D" parent="."]
 position = Vector2(166, 120)
 scale = Vector2(1.21875, 0.0937501)
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Icon2"]
 position = Vector2(40.6154, -32)
@@ -37,7 +40,7 @@ scale = Vector2(1.78125, 0.117188)
 texture = ExtResource("1_uw7r5")
 
 [node name="Bird" parent="." instance=ExtResource("2_hfi2w")]
-position = Vector2(151, 84)
+position = Vector2(265, 51)
 SPEED = 150.0
 JUMP_VELOCITY = -200.0
 
@@ -45,3 +48,7 @@ JUMP_VELOCITY = -200.0
 position = Vector2(151, 84)
 tile_set = SubResource("TileSet_c37il")
 format = 2
+
+[node name="Interaction" parent="." instance=ExtResource("3_ujd1t")]
+position = Vector2(265, 91)
+dialogue_file = "res://src/Assets/Manager.dialogue"
